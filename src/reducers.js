@@ -1,3 +1,5 @@
+import CONSTANTS from './constants'
+
 const initialState = {
 	categories: [
 		{
@@ -17,6 +19,7 @@ const initialState = {
 		}
 	],
 	locations: [],
+	mapCenter: CONSTANTS.MAP_CENTER,
 	points: [
 		{
 			coordinates: [ 55.833436, 37.715175 ],
@@ -124,6 +127,13 @@ const reducers = (state = initialState, action) => {
 					selected: !item.selected
 				}
 			})
+		}
+	}
+
+	case 'SET_MAP_CENTER': {
+		return {
+			...state,
+			mapCenter: action.payload
 		}
 	}
 

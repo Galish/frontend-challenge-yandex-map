@@ -82,6 +82,8 @@ class AddPointForm extends Component {
 		const { showModal, ...formProps } = this.state
 
 		handlers.onAddPoint(formProps)
+		handlers.onSetMapCenter(formProps.coordinates)
+
 		this.toggleModal()
 		this.clearForm()
 	}
@@ -170,7 +172,8 @@ AddPointForm.propTypes = {
 	handlers: PropTypes.shape({
 		onAddPoint: PropTypes.func,
 		onClearSearchResults: PropTypes.func,
-		onSearchByAddress: PropTypes.func
+		onSearchByAddress: PropTypes.func,
+		onSetMapCenter: PropTypes.func
 	}),
 	categories: PropTypes.arrayOf(
 		PropTypes.shape({

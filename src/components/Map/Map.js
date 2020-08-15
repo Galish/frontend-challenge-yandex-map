@@ -33,12 +33,16 @@ class Map extends Component {
 		this.initMap(this.props)
 	}
 
-	componentDidUpdate() {
-		if (!this.state.isReady) {
-			return
+	componentDidUpdate(prevProps) {
+		const { center } = this.props
+
+		if (prevProps.center !== center) {
+			this.setMapCenter(center)
 		}
 
-		this.addPoints(this.props.points)
+		if (this.state.isReady) {
+			this.addPoints(this.props.points)
+		}
 	}
 
 	getUrl = (baseUrl, { apiKey, language } = {}) => {
@@ -71,6 +75,8 @@ class Map extends Component {
 
 		this.setState({ isReady: true })
 	}
+
+	setMapCenter = coordinates => this.map.setCenter(coordinates);
 
 	generatePlacemarks = (points = []) => (
 		points.map(({ address, category, coordinates, name, description  }) => (
@@ -129,7 +135,6 @@ Map.propTypes = {
 }
 
 Map.defaultProps = {
-	center: [ 55.76, 37.64 ],
 	language: 'ru_RU',
 	points: [],
 	zoom: 10

@@ -6,7 +6,7 @@ import actions from 'actions'
 
 const FormController = ({
 	children, categories, locations, onAddPoint, onClearSearchResults,
-	onSearchByAddress
+	onSearchByAddress, onSetMapCenter
 }) => (
 	React.cloneElement(
 		children,
@@ -16,7 +16,8 @@ const FormController = ({
 			handlers: {
 				onAddPoint,
 				onClearSearchResults,
-				onSearchByAddress
+				onSearchByAddress,
+				onSetMapCenter
 			}
 		}
 	)
@@ -30,6 +31,7 @@ export default connect(
 	dispatch => bindActionCreators({
 		onAddPoint: actions.addPoint,
 		onClearSearchResults: actions.clearSearchResults,
-		onSearchByAddress: actions.searchByAddress
+		onSearchByAddress: actions.searchByAddress,
+		onSetMapCenter: actions.setMapCenter
 	}, dispatch)
 )(FormController)

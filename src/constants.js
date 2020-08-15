@@ -1,5 +1,6 @@
 const CONSTANTS = {
-	API_KEY: '35831a5e-2de7-4646-90fe-69d7d1790945'
+	API_KEY: '35831a5e-2de7-4646-90fe-69d7d1790945',
+	MAP_CENTER: [ 55.76, 37.64 ]
 }
 
 export default CONSTANTS

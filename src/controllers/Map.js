@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-const MapController = ({ children, categories, points }) => {
+const MapController = ({ children, categories, center, points }) => {
 	const selectedCategories = categories
 		.filter(({ selected}) => selected)
 		.map(({ id }) => id)
@@ -15,6 +15,7 @@ const MapController = ({ children, categories, points }) => {
 			children,
 			{
 				categories,
+				center,
 				points: visiblePoints
 			}
 		)
@@ -24,6 +25,7 @@ const MapController = ({ children, categories, points }) => {
 export default connect(
 	state => ({
 		categories: state.categories,
+		center: state.mapCenter,
 		points: state.points
 	})
 )(MapController)

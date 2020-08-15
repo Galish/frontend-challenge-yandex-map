@@ -6,7 +6,7 @@ import CONSTANTS from './constants'
 const GEOCODE_URL = 'https://geocode-maps.yandex.ru/1.x/'
 
 export default {
-	addPoint: payload => (dispatch) => {
+	addPoint: payload => dispatch => {
 		dispatch({
 			type: 'ADD_POINT',
 			payload
@@ -37,6 +37,13 @@ export default {
 
 	clearSearchResults: () => dispatch => {
 		dispatch({ type: 'CLEAR_LOCATIONS' })
+	},
+
+	setMapCenter: payload => dispatch => {
+		dispatch({
+			type: 'SET_MAP_CENTER',
+			payload
+		})
 	},
 
 	toggleCategory: id => dispatch => {
