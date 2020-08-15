@@ -6,7 +6,10 @@ import './Categories.css'
 const Categories = ({ categories, handlers }) => (
 	<div className="categories">
 		{categories.map(({ id, name, selected }) => (
-			<div className="category">
+			<div
+				className="category"
+				key={id}
+			>
 				<Checkbox
 					key={id}
 					onChange={handlers.onToogleCategory.bind(this, id)}

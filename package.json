@@ -7,6 +7,8 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "loadjs": "^4.2.0",
+    "lodash.debounce": "^4.0.8",
+    "lodash.get": "^4.4.2",
     "prop-types": "^15.7.2",
     "query-string": "^6.13.1",
     "react": "^16.13.1",

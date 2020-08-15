@@ -99,7 +99,6 @@ class Map extends Component {
 	}
 
 	render() {
-		console.log('Map', this.props);
 		return (
 			<div
 				id={CONTAINER_ID}

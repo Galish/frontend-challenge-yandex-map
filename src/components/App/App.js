@@ -3,6 +3,8 @@ import './App.css'
 
 import Categories from 'components/Categories'
 import CategoriesController from 'controllers/Categories'
+import Form from 'components/Form'
+import FormController from 'controllers/Form'
 import Map from 'components/Map'
 import MapController from 'controllers/Map'
 import CONSTANTS from 'constants'
@@ -14,6 +16,10 @@ function App() {
 				<CategoriesController>
 					<Categories />
 				</CategoriesController>
+
+				<FormController>
+					<Form />
+				</FormController>
 			</div>
 
 			<div className="content">

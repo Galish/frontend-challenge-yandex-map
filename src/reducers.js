@@ -16,6 +16,7 @@ const initialState = {
 			selected: false
 		}
 	],
+	locations: [],
 	points: [
 		{
 			coordinates: [ 55.833436, 37.715175 ],
@@ -83,6 +84,20 @@ const reducers = (state = initialState, action) => {
 		return {
 			...state,
 			categories: initialState.list
+		}
+	}
+
+	case 'SET_LOCATIONS': {
+		return {
+			...state,
+			locations: action.payload
+		}
+	}
+
+	case 'CLEAR_LOCATIONS': {
+		return {
+			...state,
+			locations: initialState.locations
 		}
 	}
 
