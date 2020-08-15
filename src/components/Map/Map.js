@@ -7,6 +7,17 @@ import './Map.css'
 
 const MAP_URL = 'https://api-maps.yandex.ru/2.1/'
 const CONTAINER_ID = 'map'
+const ICONS = {
+	cinema: {
+		preset: 'islands#redCinemaIcon'
+	},
+	club: {
+		preset: 'islands#greenNightClubIcon'
+	},
+	restaurant: {
+		preset: 'islands#blueFoodIcon'
+	},
+}
 
 class Map extends Component {
 	state = {
@@ -62,15 +73,18 @@ class Map extends Component {
 	}
 
 	generatePlacemarks = (points = []) => (
-		points.map(({ coordinates, description, preset, iconColor  }) => (
+		points.map(({ address, category, coordinates, name, description  }) => (
 			new this.ymaps.Placemark(
 				coordinates,
 				{
-					balloonContent: description
+					balloonContentHeader: name,
+					balloonContentBody: description,
+					balloonContentFooter: address,
+					hintContent: name
 				},
 				{
-					preset,
-					iconColor
+					preset: 'islands#yellowStarIcon',
+					...ICONS[ category ]
 				}
 			)
 		))
@@ -85,6 +99,7 @@ class Map extends Component {
 	}
 
 	render() {
+		console.log('Map', this.props);
 		return (
 			<div
 				id={CONTAINER_ID}
@@ -105,6 +120,8 @@ Map.propTypes = {
 			coordinates: PropTypes.arrayOf(
 				PropTypes.number
 			),
+			name: PropTypes.string,
+			address: PropTypes.string,
 			description: PropTypes.string,
 			category: PropTypes.string
 		})
