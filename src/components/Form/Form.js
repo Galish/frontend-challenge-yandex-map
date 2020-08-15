@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import debounce from 'lodash.debounce'
-import { Button, Form, Input, Modal, Select } from 'semantic-ui-react'
+import { Button, Form, Input, Modal, Select, TextArea } from 'semantic-ui-react'
 
 import { callAll } from 'helpers'
 import './Form.css'
@@ -10,8 +10,11 @@ const DEBOUNCE_WAIT = 1000
 
 class AddPointForm extends Component {
 	state = {
-		address: 'Тверская 13',
+		address: '',
+		category: null,
 		coordinates: null,
+		description: '',
+		name: '',
 		showModal: false
 	}
 
@@ -24,7 +27,7 @@ class AddPointForm extends Component {
 		</Button>
 	)
 
-	get options() {
+	get categoryOptions() {
 		return this.props.categories.map(({ id, name }) => ({
 			key: id,
 			text: name,
@@ -32,23 +35,17 @@ class AddPointForm extends Component {
 		}))
 	}
 
-	get suggestions() {
-		return this.props.locations.map(({ id, name }) => ({
-			key: id,
-			text: name,
-			value: id
-		}))
-	}
-
 	get isValid() {
-		const { coordinates, address } = this.state
+		const { showModal, ...formProps } = this.state
 
-		return !!coordinates && !!address
+		return Object.values(formProps).every(value => !!value)
 	}
 
 	toggleModal = () => this.setState(state => ({ showModal: !state.showModal }))
 
-	inputAddress = ({ target }) => this.setState({ address: target.value })
+	setFormValue = name => (_, { value }) => (
+		this.setState({ [ name ]: value })
+	)
 
 	selectAddress = ({ coordinates, name: address }) => {
 		this.setState({
@@ -74,16 +71,9 @@ class AddPointForm extends Component {
 		}
 
 		const { handlers } = this.props
-		const { address, coordinates } = this.state
+		const { showModal, ...formProps } = this.state
 
-		handlers.onAddPoint({
-			coordinates,
-			name: 'Еще один кинотеатр',
-			address,
-			description: 'Some description....',
-			category: 'cinema'
-		})
-
+		handlers.onAddPoint(formProps)
 		this.toggleModal()
 	}
 
@@ -91,7 +81,7 @@ class AddPointForm extends Component {
 
 	render() {
 		const { handlers, locations } = this.props
-		const { address, showModal } = this.state
+		const { address, category, description, name, showModal } = this.state
 
 		return (
 			<Modal
@@ -111,13 +101,14 @@ class AddPointForm extends Component {
 						<Form.Field
 							control={Input}
 							label="Название заведения"
-							value="Еще один кинотеатр"
+							onChange={this.setFormValue('name')}
+							value={name}
 						/>
 
 						<Form.Field
 							control={Input}
 							onChange={callAll(
-								this.inputAddress,
+								this.setFormValue('address'),
 								this.searchByAddressDebounced,
 								handlers.onClearSearchResults
 							)}
@@ -126,7 +117,7 @@ class AddPointForm extends Component {
 							list="address-list"
 						/>
 
-					{locations.map(location => (
+						{locations.map(location => (
 							<div
 								key={location.name}
 								value={location.name}
@@ -139,8 +130,17 @@ class AddPointForm extends Component {
 						<Form.Field
 							control={Select}
 							label="Категория"
-							options={this.options}
-							value="cinema"
+							onChange={this.setFormValue('category')}
+							options={this.categoryOptions}
+							value={category}
+						/>
+
+						<Form.Field
+							control={TextArea}
+							label="Краткое описание"
+							onChange={this.setFormValue('description')}
+							rows={2}
+							value={description}
 						/>
 
 						<Button type='submit'>
