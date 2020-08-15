@@ -11,6 +11,7 @@ const DEBOUNCE_WAIT = 1000
 class AddPointForm extends Component {
 	state = {
 		address: 'Тверская 13',
+		coordinates: null,
 		showModal: false
 	}
 
@@ -39,9 +40,24 @@ class AddPointForm extends Component {
 		}))
 	}
 
+	get isValid() {
+		const { coordinates, address } = this.state
+
+		return !!coordinates && !!address
+	}
+
 	toggleModal = () => this.setState(state => ({ showModal: !state.showModal }))
 
 	inputAddress = ({ target }) => this.setState({ address: target.value })
+
+	selectAddress = ({ coordinates, name: address }) => {
+		this.setState({
+			coordinates,
+			address
+		})
+
+		this.props.handlers.onClearSearchResults()
+	}
 
 	searchByAddress = () => {
 		const { handlers } = this.props
@@ -50,13 +66,32 @@ class AddPointForm extends Component {
 		handlers.onSearchByAddress(address)
 	}
 
+	onSubmit = e => {
+		e.preventDefault()
+
+		if (!this.isValid) {
+			return
+		}
+
+		const { handlers } = this.props
+		const { address, coordinates } = this.state
+
+		handlers.onAddPoint({
+			coordinates,
+			name: 'Еще один кинотеатр',
+			address,
+			description: 'Some description....',
+			category: 'cinema'
+		})
+
+		this.toggleModal()
+	}
+
 	searchByAddressDebounced = debounce(this.searchByAddress, DEBOUNCE_WAIT)
 
 	render() {
-		const { locations } = this.props
+		const { handlers, locations } = this.props
 		const { address, showModal } = this.state
-
-		console.log('locations:', this.props.locations);
 
 		return (
 			<Modal
@@ -71,11 +106,7 @@ class AddPointForm extends Component {
 					<Form
 						autoComplete="off"
 						className="form"
-						onSubmit={e => {
-							e.preventDefault()
-
-							console.log('!!!');
-						}}
+						onSubmit={this.onSubmit}
 					>
 						<Form.Field
 							control={Input}
@@ -87,22 +118,23 @@ class AddPointForm extends Component {
 							control={Input}
 							onChange={callAll(
 								this.inputAddress,
-								this.searchByAddressDebounced
+								this.searchByAddressDebounced,
+								handlers.onClearSearchResults
 							)}
 							label="Адрес"
 							value={address}
 							list="address-list"
 						/>
 
-						<datalist id="address-list">
-							{locations.map(({ id, name })=> (
-								<option
-									key={name}
-									value={name}>
-									{name}
-								</option>
-							))}
-						</datalist>
+					{locations.map(location => (
+							<div
+								key={location.name}
+								value={location.name}
+								onClick={this.selectAddress.bind(this, location)}
+							>
+								{location.name}
+							</div>
+						))}
 
 						<Form.Field
 							control={Select}
@@ -124,6 +156,7 @@ class AddPointForm extends Component {
 
 AddPointForm.propTypes = {
 	handlers: PropTypes.shape({
+		onAddPoint: PropTypes.func,
 		onClearSearchResults: PropTypes.func,
 		onSearchByAddress: PropTypes.func
 	}),

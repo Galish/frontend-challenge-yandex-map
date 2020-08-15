@@ -6,6 +6,13 @@ import CONSTANTS from './constants'
 const GEOCODE_URL = 'https://geocode-maps.yandex.ru/1.x/'
 
 export default {
+	addPoint: payload => (dispatch) => {
+		dispatch({
+			type: 'ADD_POINT',
+			payload
+		})
+	},
+
 	searchByAddress: value => async(dispatch) => {
 		const query = {
 			apikey: CONSTANTS.API_KEY,
@@ -18,7 +25,7 @@ export default {
 		const jsonResponse = await response.json()
 		const collection = get(jsonResponse, 'response.GeoObjectCollection.featureMember') || []
 		const payload = collection.map(item => ({
-			coordinates: get(item, 'GeoObject.Point.pos').split(' ').map(parseFloat),
+			coordinates: get(item, 'GeoObject.Point.pos').split(' ').map(parseFloat).reverse(),
 			name: `${get(item, 'GeoObject.name')}, ${get(item, 'GeoObject.description')}`
 		}))
 

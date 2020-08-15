@@ -5,7 +5,8 @@ import { connect } from 'react-redux'
 import actions from 'actions'
 
 const FormController = ({
-	children, categories, locations, onClearSearchResults, onSearchByAddress
+	children, categories, locations, onAddPoint, onClearSearchResults,
+	onSearchByAddress
 }) => (
 	React.cloneElement(
 		children,
@@ -13,6 +14,7 @@ const FormController = ({
 			categories,
 			locations,
 			handlers: {
+				onAddPoint,
 				onClearSearchResults,
 				onSearchByAddress
 			}
@@ -26,6 +28,7 @@ export default connect(
 		locations: state.locations
 	}),
 	dispatch => bindActionCreators({
+		onAddPoint: actions.addPoint,
 		onClearSearchResults: actions.clearSearchResults,
 		onSearchByAddress: actions.searchByAddress
 	}, dispatch)
