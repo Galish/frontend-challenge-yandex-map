@@ -77,6 +77,8 @@ class Map extends Component {
 	)
 
 	addPoints = (points = []) => {
+		this.map.geoObjects.removeAll()
+
 		this.generatePlacemarks(points).forEach(geoObject => (
 			this.map.geoObjects.add(geoObject)
 		))
@@ -104,8 +106,7 @@ Map.propTypes = {
 				PropTypes.number
 			),
 			description: PropTypes.string,
-			preset: PropTypes.string,
-			iconColor: PropTypes.string
+			category: PropTypes.string
 		})
 	),
 	zoom: PropTypes.number
@@ -114,14 +115,7 @@ Map.propTypes = {
 Map.defaultProps = {
 	center: [ 55.76, 37.64 ],
 	language: 'ru_RU',
-	points: [
-		{
-			coordinates: [ 55.833436, 37.715175 ],
-			description: 'Some text...',
-			preset: 'islands#dotIcon',
-			iconColor: '#735184'
-		}
-	],
+	points: [],
 	zoom: 10
 }
 

@@ -1,0 +1,12 @@
+.category {
+	display: inline-block;
+	padding: 10px;
+}
+
+.category label {
+	color: white!important;
+}
+
+.categories {
+	padding: 20px;
+}
