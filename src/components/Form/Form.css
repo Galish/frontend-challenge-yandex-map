@@ -3,3 +3,12 @@
 	right: 20px;
 	top: 20px;
 }
+
+.ui.segments.suggestions {
+	margin-top: -10px;
+	margin-bottom: 20px;
+}
+
+.suggestions .ui.segment {
+	cursor: pointer;
+}

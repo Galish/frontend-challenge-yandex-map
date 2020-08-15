@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import debounce from 'lodash.debounce'
-import { Button, Form, Input, Modal, Select, TextArea } from 'semantic-ui-react'
+import { Button, Form, Input, Modal, Segment, Select, TextArea } from 'semantic-ui-react'
 
 import { callAll } from 'helpers'
 import './Form.css'
@@ -9,12 +9,16 @@ import './Form.css'
 const DEBOUNCE_WAIT = 1000
 
 class AddPointForm extends Component {
-	state = {
+	defaultState = {
 		address: '',
 		category: null,
 		coordinates: null,
 		description: '',
 		name: '',
+	}
+
+	state = {
+		...this.defaultState,
 		showModal: false
 	}
 
@@ -41,7 +45,11 @@ class AddPointForm extends Component {
 		return Object.values(formProps).every(value => !!value)
 	}
 
-	toggleModal = () => this.setState(state => ({ showModal: !state.showModal }))
+	toggleModal = () => (
+		this.setState(state => ({ showModal: !state.showModal }))
+	)
+
+	clearForm = () => this.setState({ ...this.defaultState })
 
 	setFormValue = name => (_, { value }) => (
 		this.setState({ [ name ]: value })
@@ -75,6 +83,7 @@ class AddPointForm extends Component {
 
 		handlers.onAddPoint(formProps)
 		this.toggleModal()
+		this.clearForm()
 	}
 
 	searchByAddressDebounced = debounce(this.searchByAddress, DEBOUNCE_WAIT)
@@ -114,18 +123,21 @@ class AddPointForm extends Component {
 							)}
 							label="Адрес"
 							value={address}
-							list="address-list"
 						/>
 
-						{locations.map(location => (
-							<div
-								key={location.name}
-								value={location.name}
-								onClick={this.selectAddress.bind(this, location)}
-							>
-								{location.name}
-							</div>
-						))}
+						{!!locations.length && (
+							<Segment.Group className="suggestions">
+								{locations.map(location => (
+									<Segment
+										key={location.name}
+										value={location.name}
+										onClick={this.selectAddress.bind(this, location)}
+									>
+										{location.name}
+									</Segment>
+								))}
+							</Segment.Group>
+						)}
 
 						<Form.Field
 							control={Select}
