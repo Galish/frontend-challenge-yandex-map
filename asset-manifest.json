@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/frontend-challenge-yandex-map/static/css/main.ffc12faf.chunk.css",
+    "main.js": "/frontend-challenge-yandex-map/static/js/main.d0a8764f.chunk.js",
+    "main.js.map": "/frontend-challenge-yandex-map/static/js/main.d0a8764f.chunk.js.map",
+    "runtime-main.js": "/frontend-challenge-yandex-map/static/js/runtime-main.5889c432.js",
+    "runtime-main.js.map": "/frontend-challenge-yandex-map/static/js/runtime-main.5889c432.js.map",
+    "static/css/2.63aa4354.chunk.css": "/frontend-challenge-yandex-map/static/css/2.63aa4354.chunk.css",
+    "static/js/2.f076f2ba.chunk.js": "/frontend-challenge-yandex-map/static/js/2.f076f2ba.chunk.js",
+    "static/js/2.f076f2ba.chunk.js.map": "/frontend-challenge-yandex-map/static/js/2.f076f2ba.chunk.js.map",
+    "index.html": "/frontend-challenge-yandex-map/index.html",
+    "precache-manifest.933b18f48d2cf8066b099f790df150fb.js": "/frontend-challenge-yandex-map/precache-manifest.933b18f48d2cf8066b099f790df150fb.js",
+    "service-worker.js": "/frontend-challenge-yandex-map/service-worker.js",
+    "static/css/2.63aa4354.chunk.css.map": "/frontend-challenge-yandex-map/static/css/2.63aa4354.chunk.css.map",
+    "static/css/main.ffc12faf.chunk.css.map": "/frontend-challenge-yandex-map/static/css/main.ffc12faf.chunk.css.map",
+    "static/js/2.f076f2ba.chunk.js.LICENSE.txt": "/frontend-challenge-yandex-map/static/js/2.f076f2ba.chunk.js.LICENSE.txt",
+    "static/media/semantic.min.css": "/frontend-challenge-yandex-map/static/media/outline-icons.ef60a4f6.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5889c432.js",
+    "static/css/2.63aa4354.chunk.css",
+    "static/js/2.f076f2ba.chunk.js",
+    "static/css/main.ffc12faf.chunk.css",
+    "static/js/main.d0a8764f.chunk.js"
+  ]
+}
